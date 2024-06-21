@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/', methods = ["GET"])
 def hello_word():
-    return "Hello Word 22"
+    return "Hello Word, It is Lam"
 
 
 
