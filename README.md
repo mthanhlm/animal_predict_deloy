@@ -1,1 +1,1 @@
-# catdog
+# animal prediction
