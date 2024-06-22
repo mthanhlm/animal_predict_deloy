@@ -5,12 +5,11 @@ from keras_preprocessing.image import load_img, img_to_array
 
 app = Flask(__name__)
 model = VGG16()
-
 # Đảm bảo thư mục static/uploads tồn tại
 if not os.path.exists('./static/uploads'):
     os.makedirs('./static/uploads')
 
-@app.route('/', methods=["GET","POST"])
+@app.route('/', methods=["GET"])
 def home():
     return render_template("index.html", prediction="Hãy chọn ảnh để chuẩn đoán")
 
