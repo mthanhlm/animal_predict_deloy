@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,16 +97,15 @@
     <h1>Image Upload and Prediction</h1>
     
     <div id="upload-section">
-        <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
+        <form id="upload-form" action="/predict" method="POST" enctype="multipart/form-data">
             <input type="file" id="file-input" name="imagefile" accept="image/*">
-            <input type="hidden" id="image-data" name="image_data">
             <button type="submit" id="predict-button">Predict Image</button>
         </form>
     </div>
     
     <div id="preview-container">
         <span id="no-preview">No preview image</span>
-        <img id="preview" src="" alt="Image preview">
+        <img id="preview" src="" alt="Image preview" style="display: none;">
     </div>
 
     <div id="result-container">
@@ -115,22 +115,28 @@
     <script>
         document.getElementById('file-input').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            const noPreview = document.getElementById('no-preview');
-            const img = document.getElementById('preview');
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    const img = document.getElementById('preview');
                     img.src = e.target.result;
                     img.style.display = 'block';
-                    noPreview.style.display = 'none';
-                    document.getElementById('image-data').value = e.target.result;
+                    document.getElementById('no-preview').style.display = 'none';
                 };
                 reader.readAsDataURL(file);
-            } else {
-                img.style.display = 'none';
-                noPreview.style.display = 'block';
             }
         });
+        
+        // Thêm đoạn code này để hiển thị ảnh sau khi predict
+        window.onload = function() {
+            const imageUrl = "{{ image_url }}";
+            if (imageUrl) {
+                const img = document.getElementById('preview');
+                img.src = imageUrl;
+                img.style.display = 'block';
+                document.getElementById('no-preview').style.display = 'none';
+            }
+        };
     </script>
 
 </body>
